@@ -1,0 +1,430 @@
+/* ===== Gaming / Neon theme - final, fixed =====
+   Paste at the end of your CSS file (no JS changes)
+*/
+
+/* Night theme variables */
+:root {
+    --gc-bg: #071018;
+    --gc-panel: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    --gc-card-bg: rgba(255, 255, 255, 0.03);
+    --gc-accent: #00ff9c;
+    --gc-accent-2: #6f42c1;
+    --gc-glow: 0 10px 35px rgba(0, 255, 156, 0.06);
+    --gc-radius: 14px;
+    --gc-shadow-strong: 0 18px 40px rgba(2, 8, 15, 0.6);
+    --card-text: #eaf6ff;
+    --muted-text: #9fb7c9;
+    --nav-bg: rgba(0, 0, 0, 0.28);
+}
+
+/* ===== Ensure full-screen dark background (fix white gap) ===== */
+html,
+body,
+#root {
+    height: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(1200px 400px at 10% 10%, rgba(111, 66, 193, 0.06), transparent),
+        radial-gradient(800px 300px at 90% 80%, rgba(0, 255, 156, 0.03), transparent),
+        linear-gradient(180deg, #04060a, var(--gc-bg) 60%);
+color: #5d86a5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* wrapper adjustments for cinematic look */
+.gc-root {
+    padding: 28px 20px;
+    box-sizing: border-box;
+    min-height: calc(100vh - 60px);
+    /* fill remaining vertical space under nav */
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+/* central constrained container */
+.gc-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: transparent;
+    box-sizing: border-box;
+}
+
+/* Title styling */
+.gc-title {
+    color: #fff;
+    font-size: 34px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.6), 0 6px 22px rgba(0, 255, 156, 0.04);
+    letter-spacing: 0.6px;
+    margin: 6px 0 18px;
+    font-weight: 700;
+}
+
+/* KPI cards list */
+.gc-cards {
+    gap: 20px;
+    margin-bottom: 12px;
+}
+
+/* Card base style (glass/neon) */
+.gc-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+    border-radius: var(--gc-radius);
+    padding: 18px;
+    min-height: 88px;
+    box-shadow: 0 18px 40px rgba(2, 8, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px) saturate(120%);
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    color: var(--card-text);
+}
+
+/* hover neon pop */
+.gc-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 255, 156, 0.12);
+    box-shadow: 0 26px 80px rgba(0, 0, 0, 0.6), 0 12px 40px rgba(0, 255, 156, 0.05);
+}
+
+/* card heading + value */
+.gc-card-heading {
+    color: var(--muted-text);
+    font-size: 13px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.gc-card-value {
+    color: var(--card-text);
+    font-weight: 800;
+    font-size: 18px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.6);
+    font-family: "Segoe UI", Roboto, system-ui, -apple-system;
+}
+
+/* Force card children visible even if parent inline style opacity was used */
+.gc-card * {
+    color: inherit !important;
+}
+
+/* Desktop layout: left KPI column + right charts column */
+@media (min-width: 980px) {
+    .gc-wrapper {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 36px;
+        align-items: start;
+    }
+
+    .gc-title {
+        grid-column: 1 / 2;
+    }
+
+    .gc-cards {
+        grid-column: 1 / 2;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .gc-grid,
+    .gc-section {
+        grid-column: 2 / 3;
+    }
+}
+
+/* Charts area card style (glass + neon accent) */
+.gc-chart-box,
+.gc-chart-box-wide {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border-radius: 14px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: var(--gc-shadow-strong);
+    transition: transform 260ms cubic-bezier(.2, .9, .3, 1), box-shadow 260ms ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+/* neon top accent bar */
+.gc-chart-box::before,
+.gc-chart-box-wide::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 12px;
+    height: 6px;
+    width: 64px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--gc-accent), var(--gc-accent-2));
+    box-shadow: 0 8px 30px rgba(111, 66, 193, 0.08), 0 8px 40px rgba(0, 255, 156, 0.04);
+    opacity: 0.95;
+    transform-origin: left center;
+    animation: neonPulse 2.6s ease-in-out infinite;
+}
+
+/* hover pop for chart cards */
+.gc-chart-box:hover,
+.gc-chart-box-wide:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 80px rgba(0, 0, 0, 0.6), 0 12px 40px rgba(0, 255, 156, 0.06);
+}
+
+/* chart titles + legend color */
+.gc-chart-title {
+    color: var(--card-text);
+    font-weight: 700;
+    margin: 0 0 8px;
+    font-size: 14px;
+}
+
+/* chart container sizes */
+.gc-chart-box {
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Narrow the top gap above the wide profit chart so the big whitespace disappears */
+.gc-section {
+    margin-top: 10px !important;
+    padding-top: 0 !important;
+}
+
+/* wide chart spans full width below charts grid and sits closer to previous charts */
+.gc-chart-box-wide {
+    grid-column: 1 / -1;
+    height: 420px;
+    margin-top: 10px;
+}
+
+/* ensure canvas fills container and stays crisp */
+.gc-chart-box canvas,
+.gc-chart-box-wide canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    border-radius: 8px;
+}
+
+/* smaller pie slightly different height */
+.gc-chart-box.pie {
+    height: 380px;
+}
+
+/* legend / axis label color overrides (Chart.js may set text to SVG/text nodes) */
+.gc-chart-box .chart-legend,
+.gc-chart-box-wide .chart-legend,
+.gc-chart-box text,
+.gc-chart-box-wide text,
+.gc-chart-box .tick,
+.gc-chart-box-wide .tick {
+    fill: var(--card-text) !important;
+    color: var(--card-text) !important;
+    stroke: none !important;
+}
+
+/* Tablet / mobile responsiveness */
+@media (max-width: 1199px) {
+
+    .gc-chart-box,
+    .gc-chart-box-wide {
+        height: 320px;
+    }
+
+    .gc-chart-box-wide {
+        height: 360px;
+    }
+}
+
+@media (max-width: 640px) {
+    .gc-title {
+        font-size: 20px;
+    }
+
+    .gc-card {
+        min-height: 70px;
+        padding: 12px;
+    }
+
+    .gc-card-value {
+        font-size: 15px;
+    }
+
+    .gc-chart-box,
+    .gc-chart-box-wide {
+        height: 240px;
+        padding: 10px;
+    }
+
+    .gc-chart-box-wide {
+        height: 300px;
+        grid-column: auto;
+    }
+
+    .gc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gc-cards {
+        gap: 12px;
+    }
+
+    .gc-card {
+        min-width: 100%;
+    }
+
+    .gc-chart-box::before,
+    .gc-chart-box-wide::before {
+        left: 12px;
+        top: 8px;
+        width: 48px;
+        height: 5px;
+    }
+}
+
+/* neon pulse animation */
+@keyframes neonPulse {
+    0% {
+        box-shadow: 0 8px 24px rgba(0, 255, 156, 0.03);
+        transform: scaleX(1);
+        opacity: 0.95;
+    }
+
+    50% {
+        box-shadow: 0 20px 80px rgba(0, 255, 156, 0.07);
+        transform: scaleX(1.04);
+        opacity: 1;
+    }
+
+    100% {
+        box-shadow: 0 8px 24px rgba(0, 255, 156, 0.03);
+        transform: scaleX(1);
+        opacity: 0.95;
+    }
+}
+
+/* keep canvases crisp: avoid transforms on parents */
+.gc-wrapper,
+.gc-card,
+.gc-chart-box,
+.gc-chart-box-wide {
+    transform: none !important;
+    backface-visibility: hidden;
+}
+
+/* Navbar / top links (styling generic anchors/header) */
+nav,
+.app-nav,
+.navbar,
+header {
+    background: var(--nav-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(6px);
+    padding: 8px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* navigation link style (if your links are plain <a>) */
+nav a,
+.app-nav a,
+a.nav-link {
+    color: #cfe8ff;
+    text-decoration: none;
+    margin-right: 14px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: all 180ms ease;
+    font-weight: 600;
+}
+
+/* neon hover for links */
+nav a:hover,
+.app-nav a:hover,
+a.nav-link:hover {
+    color: #071018;
+    background: linear-gradient(90deg, var(--gc-accent), var(--gc-accent-2));
+    box-shadow: 0 6px 28px rgba(0, 255, 156, 0.08), 0 6px 30px rgba(111, 66, 193, 0.06);
+    transform: translateY(-3px);
+}
+
+/* generic button */
+button,
+.btn {
+    background: linear-gradient(90deg, #1b2b3a, #0f1b29);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+button:hover,
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Force visible text in case some inline opacity/overlay hides it */
+body *[style*="opacity"],
+.gc-wrapper *[style*="opacity"] {
+    opacity: 1 !important;
+    color: inherit !important;
+}
+
+/* Ensure simulation page element fills dark background and inputs are readable */
+/* Add class="simulation-page" to your simulation page wrapper (or adapt selector to your page) */
+.simulation-page {
+    flex: 1 1 auto;
+    background: transparent;
+    color: var(--card-text);
+    padding: 24px 0 60px;
+    box-sizing: border-box;
+}
+
+/* dark input styles for simulation form */
+.simulation-page input,
+.simulation-page select,
+.simulation-page textarea {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--card-text);
+    border-radius: 6px;
+    padding: 8px 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.simulation-page input:focus,
+.simulation-page select:focus,
+.simulation-page textarea:focus {
+    outline: none;
+    border-color: var(--gc-accent);
+    box-shadow: 0 0 12px rgba(0, 255, 156, 0.18);
+}
+
+/* small helper: reduce the top gap before wide chart in all viewports */
+.gc-section .gc-chart-box-wide {
+    margin-top: 8px;
+}
+
+/* Last safety: prevent horizontal scroll if something grows */
+html,
+body,
+#root {
+    overflow-x: hidden;
+}
+
+/* End of gaming theme CSS */

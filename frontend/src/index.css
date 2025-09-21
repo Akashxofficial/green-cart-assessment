@@ -1,0 +1,198 @@
+/* ===== KPI responsive layout for GreenCart ===== */
+
+/* Base wrapper */
+.gc-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* KPI cards container */
+.gc-cards {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin-bottom: 20px;
+}
+
+/* KPI card */
+.gc-card {
+    flex: 1 1 220px;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--gc-card-bg, #fff);
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: var(--gc-shadow, 0 8px 20px rgba(16, 24, 40, 0.06));
+}
+
+.gc-card-heading {
+    font-size: 13px;
+    color: #333;
+    margin: 0 0 6px;
+}
+
+.gc-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+}
+
+.gc-sub {
+    color: #666;
+    margin: 6px 0 18px;
+    font-size: 14px;
+}
+
+/* Title */
+.gc-title {
+    font-size: 28px;
+    margin: 0 0 12px;
+}
+
+/* -------- Desktop (>=1000px) -------- */
+@media (min-width: 1000px) {
+    .gc-wrapper {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 32px;
+        align-items: start;
+        padding: 30px;
+    }
+
+    .gc-title {
+        grid-column: 1 / 2;
+        text-align: left;
+        margin-bottom: 12px;
+    }
+
+    .gc-cards {
+        grid-column: 1 / 2;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .gc-grid,
+    .gc-section {
+        grid-column: 2 / 3;
+    }
+
+    .gc-card {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        min-height: 72px;
+    }
+
+    .gc-card-heading {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .gc-card-value {
+        font-size: 18px;
+    }
+
+    .gc-chart-box {
+        margin-top: 4px;
+    }
+
+    .gc-chart-box-wide {
+        margin-top: 18px;
+    }
+}
+
+/* -------- Tablet (<=999px) -------- */
+@media (max-width: 999px) {
+    .gc-wrapper {
+        display: block;
+        padding: 18px;
+    }
+
+    .gc-title {
+        font-size: 22px;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .gc-cards {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .gc-card {
+        min-width: 160px;
+        padding: 12px;
+    }
+
+    .gc-card-value {
+        font-size: 17px;
+    }
+
+    .gc-chart-box {
+        height: 320px;
+    }
+
+    .gc-chart-box-wide {
+        height: 340px;
+    }
+}
+
+/* -------- Phone (<=480px) -------- */
+@media (max-width: 480px) {
+    .gc-wrapper {
+        padding: 12px;
+    }
+
+    .gc-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .gc-cards {
+        gap: 12px;
+    }
+
+    .gc-card {
+        padding: 10px;
+        min-width: 0;
+    }
+
+    .gc-card-heading {
+        font-size: 12px;
+    }
+
+    .gc-card-value {
+        font-size: 16px;
+    }
+
+    .gc-sub {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .gc-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px;
+    }
+}
+
+/* Charts sizing */
+.gc-chart-box canvas,
+.gc-chart-box-wide canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Prevent horizontal scroll */
+html,
+body,
+#root {
+    overflow-x: hidden;
+}
